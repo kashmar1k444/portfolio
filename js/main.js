@@ -5,7 +5,7 @@ const line = document.querySelector('.line'),
   scrollDownBtn = document.querySelector('.scroll-down__button'),
   anchors = document.querySelectorAll("a[href^='#']"),
   aboutMeBtn = document.querySelector('.about-me__button'),
-  aboutMeText = document.querySelector('.about-me__info p'),
+  aboutMeText = document.querySelector('.about-me__info div'),
   tabs = document.querySelector('.tabs'),
   form = document.querySelector('.contact__form'),
   nameRg = /^.{4,}$/,
@@ -88,6 +88,16 @@ const initTabs = (wrapper) => {
     })
 }
 
+const animateNavBar = (state) => {
+    Flip.from(state, {
+        duration: 1,
+        absolute: true,
+        ease: "power1.inOut",
+        onEnter: el => gsap.fromTo(el, {x: '-100%'}, {x: '0', duration: 1}),
+        onLeave: el => gsap.to(el, {x: '-100%', duration: 1}),
+    })
+}
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(form),
@@ -132,18 +142,9 @@ aboutMeBtn.addEventListener('click', () => {
 burger.addEventListener('click', () => {
 
     const state = Flip.getState(headerNav);
-
-
-    burger.classList.toggle('active');
     headerNav.classList.toggle('active');
 
-    Flip.from(state, {
-        duration: 1,
-        absolute: true,
-        ease: "power1.inOut",
-        onEnter: el => gsap.fromTo(el, {x: '-100%'}, {x: '0', duration: 1}),
-        onLeave: el => gsap.to(el, {x: '-100%', duration: 1}),
-    })
+    animateNavBar(state)
 
 })
 
@@ -159,13 +160,25 @@ window.addEventListener('scroll', () => {
     } else {
         header.classList.remove('fixed');
     }
+
+    if(headerNav.classList.contains('active')){
+        const state = Flip.getState(headerNav);
+        headerNav.classList.remove('active');
+        animateNavBar(state);
+    }
 })
 
 anchors.forEach(el => {
     el.addEventListener('click', (e) => {
         e.preventDefault();
-        const id = el.getAttribute('href');
-        const section = document.querySelector(id);
+        const state = Flip.getState(headerNav),
+        id = el.getAttribute('href'),
+        section = document.querySelector(id);
+        if(headerNav.classList.contains('active')) {
+            headerNav.classList.remove('active');    
+            animateNavBar(state);
+        }
+
         gsap.to(window, {
 			scrollTo: {y: section, autoKill: true},
 			duration: 1,

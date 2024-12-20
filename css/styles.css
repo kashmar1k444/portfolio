@@ -168,53 +168,9 @@ body{
 }
 
 .burger{
-    position: relative;
-    width: 50px;
-    height: 25px;
     cursor: pointer;
     display: none;
 }
-
-.burger__item{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 3px;
-    background: #fff;
-    transition: var(--transition);
-}
-
-.burger__item:nth-child(2), .burger__item:nth-child(3){
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.burger__item:nth-child(4){
-    top: 100%;
-}
-
-.burger.active .burger__item:nth-child(1){
-    transform: translateY(-20px);
-    opacity: 0;
-}
-
-.burger.active .burger__item:nth-child(4){
-    transform: translateY(20px);
-    opacity: 0;
-}
-
-
-.burger.active .burger__item:nth-child(2){
-    transform: rotate(45deg);
-    transition-delay: .3;
-}
-
-.burger.active .burger__item:nth-child(3){
-    transform: rotate(-45deg);
-    transition-delay: .3;
-}
-
 
 /* HEADER END */
 
@@ -307,14 +263,31 @@ body{
 }
 
 
-.about-me__info p{
+.about-me__info > div{
     width: 389px;
-    height: 190px;
+    height: 187px;
     overflow: hidden;
     margin-bottom: 30px;
 }
 
-.about-me__info p.active{
+.about-me__info > div p{
+    margin-bottom: 16px;
+}
+
+.about-me__info > div h5{
+    font-size: 18px;
+    margin: 8px 0
+}
+
+.about-me__info > div h3{
+    margin: 16px 0;
+}
+
+.about-me__info > div li{
+    font-size: 16px;
+}
+
+.about-me__info > div.active{
     height: auto;
 }
 
@@ -327,6 +300,11 @@ body{
     position: absolute;
     left: 108px;
     top: 224px;
+}
+
+.about-me__images_sticky{
+    position: sticky;
+    top: 200px;
 }
 
 /* ABOUT ME END  */
@@ -641,8 +619,9 @@ body{
         right: 0;
     }
 
-    .about-me__info p{
+    .about-me__info div{
         width: 100%;
+        text-align: center;
     }
 
     .about-me__button{

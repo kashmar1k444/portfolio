@@ -171,7 +171,7 @@ gsap.fromTo('.about-me__images_abs',
 })
 
 
-gsap.fromTo('.about-me__info p', 
+gsap.fromTo('.about-me__info > div', 
     {
         x: -200,
         opacity: 0,
