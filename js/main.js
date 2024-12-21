@@ -107,10 +107,7 @@ form.addEventListener('submit', (e) => {
         varifyName = verifyInput(name, nameRg , 'name'),
         varifyEmail = verifyInput(email, emailRg, 'email');
     if(varifyName && varifyEmail) {
-        fetch('./send.php', {
-            method: 'post',
-            body: formData
-        })
+        fetch(`./send.php?name=${name}&email=${email}&message=${formData.get('message').trim()}`)
         .then(res => {
             if(res.status == 200) {
                 const state = Flip.getState(popUp);
