@@ -1,11 +1,10 @@
 <?php
-
-echo $_POST;
+$token = $_POST;
 
 $token = "7210188213:AAFhTfj07t8AP6CZh7sFFx1QP0JvHRFAPFg";
 $chat_id = "-4735149758";
 $name = $_POST['name'];
-$email = $_POST['phone'];
+$email = $_POST['email'];
 $message = $_POST['message'];
 
 $arr = array(
@@ -14,6 +13,7 @@ $arr = array(
     'message:' => $message
 );
 
+$txt = "";
 
 foreach ($arr as $key => $value) {
     $txt .= "<b>" . $key . "</b> " . $value . "%0A";
