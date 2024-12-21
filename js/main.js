@@ -107,20 +107,21 @@ form.addEventListener('submit', (e) => {
         varifyName = verifyInput(name, nameRg , 'name'),
         varifyEmail = verifyInput(email, emailRg, 'email');
     if(varifyName && varifyEmail) {
-        fetch('./send.php', JSON.stringify({
-            name,
-            email,
-            message: formData.get('message').trim()
-        }))
+        fetch('./send.php', {
+            method: 'post',
+            body: formData
+        })
         .then(res => {
-            const state = Flip.getState(popUp);
-            popUp.style.display = 'grid';
-            Flip.from(state, {
-                duration: 1,
-                absolute: true,
-                ease: "power1.inOut",
-                onEnter: el => gsap.fromTo(el, {opacity: 0}, {opacity: 1, duration: 1}),
-            })
+            if(res.status == 200) {
+                const state = Flip.getState(popUp);
+                popUp.style.display = 'grid';
+                Flip.from(state, {
+                    duration: 1,
+                    absolute: true,
+                    ease: "power1.inOut",
+                    onEnter: el => gsap.fromTo(el, {opacity: 0}, {opacity: 1, duration: 1}),
+                })
+            }
         })
     }
 })

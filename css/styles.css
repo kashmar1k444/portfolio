@@ -384,6 +384,7 @@ body{
     position: relative;
     display: grid;
     max-width: 600px;
+    width: 100%;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, max-content);
     gap: 24px;

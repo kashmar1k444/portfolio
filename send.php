@@ -1,11 +1,11 @@
 <?php
 
-echo $_GET;
+echo $_POST;
 
 $token = "7210188213:AAFhTfj07t8AP6CZh7sFFx1QP0JvHRFAPFg";
 $chat_id = "-4735149758";
-$name = $_GET['name'];
-$email = $_GET['phone'];
+$name = $_POST['name'];
+$email = $_POST['phone'];
 $message = $_POST['message'];
 
 $arr = array(
