@@ -491,7 +491,7 @@ body{
 
 .success-popup{
     position: fixed;
-    display: grid;
+    display: none;
     top: 0;
     left: 0;
     place-items: center;

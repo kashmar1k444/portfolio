@@ -107,10 +107,11 @@ form.addEventListener('submit', (e) => {
         varifyName = verifyInput(name, nameRg , 'name'),
         varifyEmail = verifyInput(email, emailRg, 'email');
     if(varifyName && varifyEmail) {
-        fetch('./send.php', {
-            method: 'post',
-            body: FormData
-        })
+        fetch('./send.php', JSON.stringify({
+            name,
+            email,
+            message: formData.get('message').trim()
+        }))
         .then(res => {
             const state = Flip.getState(popUp);
             popUp.style.display = 'grid';
