@@ -8,6 +8,7 @@ const line = document.querySelector('.line'),
   aboutMeText = document.querySelector('.about-me__info div'),
   tabs = document.querySelector('.tabs'),
   form = document.querySelector('.contact__form'),
+  popUp = document.querySelector('.success-popup');
   nameRg = /^.{4,}$/,
   emailRg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -103,51 +104,60 @@ form.addEventListener('submit', (e) => {
     const formData = new FormData(form),
         name = formData.get('name').trim(),
         email = formData.get('email').trim(),
-        varifyName= verifyInput(name, nameRg , 'name'),
+        varifyName = verifyInput(name, nameRg , 'name'),
         varifyEmail = verifyInput(email, emailRg, 'email');
     if(varifyName && varifyEmail) {
-        fetch('/send.php', {
+        fetch('./send.php', {
             method: 'post',
             body: FormData
         })
         .then(res => {
-            console.log('123');
+            const state = Flip.getState(popUp);
+            popUp.style.display = 'grid';
+            Flip.from(state, {
+                duration: 1,
+                absolute: true,
+                ease: "power1.inOut",
+                onEnter: el => gsap.fromTo(el, {opacity: 0}, {opacity: 1, duration: 1}),
+            })
         })
     }
-
 })
 
 scrollDownBtn.addEventListener('click', () => {
-
     gsap.to(window, {
         scrollTo: {y: document.querySelector('#about'), autoKill: true},
         duration: 1,
     });
-
 })
 
 aboutMeBtn.addEventListener('click', () => {
-
     let state = Flip.getState(aboutMeText);
-
     aboutMeText.classList.toggle('active');
-
     aboutMeText.classList.contains('active') ? aboutMeBtn.innerText = 'Read Less' : aboutMeBtn.innerText = 'Read More';
- 
     Flip.from(state, {
         duration: .5,
     });
 })
 
 burger.addEventListener('click', () => {
-
     const state = Flip.getState(headerNav);
     headerNav.classList.toggle('active');
 
     animateNavBar(state)
-
 })
 
+popUp.addEventListener('click', (e) => {
+    const target = e.target,
+    state = Flip.getState(popUp);
+    if(target && target.classList.contains('overflow') || target.classList.contains('close__btn')) popUp.style.display = 'none';
+    Flip.from(state, {
+        duration: 1,
+        absolute: true,
+        ease: "power1.inOut",
+        onLeave: el => gsap.to(el, {opacity: 0, duration: 1}),
+    })
+})
 
 window.addEventListener('resize', () => {
     setLineStyles();
