@@ -2,9 +2,9 @@
 
 $token = "7210188213:AAFhTfj07t8AP6CZh7sFFx1QP0JvHRFAPFg";
 $chat_id = "-4735149758";
-$name = $_GET['name'];
-$email = $_GET['email'];
-$message = $_GET['message'];
+$name = $_POST['name'];
+$email = $_POST['email'];
+$message = $_POST['message'];
 
 $arr = array(
     'name:' => $name,
